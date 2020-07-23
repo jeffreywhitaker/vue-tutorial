@@ -23,39 +23,10 @@
   <body>
     <div class="nav-bar"></div>
     <div id="app">
-      <div class="product">
-        <div class="product-image">
-          <img :src="image" />
-        </div>
-        <div class="product-info">
-          <h1>{{ product }}</h1>
-          <p v-if="count >= 5">In Stock</p>
-          <p v-else-if="count < 5">Only {{ count }} more left!</p>
-          <p v-else>Sold Out</p>
-          <ul>
-            <li v-for="detail in details">
-              {{ detail }}
-            </li>
-          </ul>
-          <div
-            class="color-box"
-            v-for="variant in variants"
-            :style="{backgroundColor: variant.variantColor}"
-            :key="variant.variantId"
-            @mouseover="updateProduct(variant.variantImage)"
-          ></div>
-          <button
-            v-on:click="addToCart"
-            :disabled="count < 1"
-            :class="{disabledButton: count < 1}"
-          >
-            Add to Cart
-          </button>
-          <div class="cart">
-            <p>Cart({{ cart }})</p>
-          </div>
-        </div>
+      <div class="cart">
+        <p>Cart({{ cart.length }})</p>
       </div>
+      <product :premium="premium" @add-to-cart="updateCart"></product>
     </div>
     <script src="./main.js"></script>
   </body>

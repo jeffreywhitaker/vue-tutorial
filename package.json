@@ -1,0 +1,20 @@
+{
+  "name": "vue-tutorial",
+  "version": "1.0.0",
+  "description": "online vue tutorial",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffreywhitaker/vue-tutorial.git"
+  },
+  "author": "Jeffrey Whitaker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeffreywhitaker/vue-tutorial/issues"
+  },
+  "homepage": "https://github.com/jeffreywhitaker/vue-tutorial#readme"
+}
