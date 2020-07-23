@@ -4,49 +4,59 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
+  <!--<![endif]-->
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vue Tutorial</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="index.css">
-  <!-- development version, includes helpful console warnings -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Vue Tutorial</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-  <!-- production version, optimized for size and speed
+    <!-- production version, optimized for size and speed
   <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-</head>
+  </head>
 
-<body>
-  <div class="nav-bar"></div>
-  <div id="app">
-    <div class="product">
-      <div class="product-image">
-        <img :src="image" />
-      </div>
-      <div class="product-info">
-        <h1>{{ product }}</h1>
-        <p v-if="inStock">In Stock</p>
-        <p v-else>Out of Stock</p>
-        <ul>
-          <li v-for="detail in details">
-            {{ detail }}
-          </li>
-        </ul>
-        <div v-for="variant in variants" :key="variant.variantId">
-          <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+  <body>
+    <div class="nav-bar"></div>
+    <div id="app">
+      <div class="product">
+        <div class="product-image">
+          <img :src="image" />
         </div>
-        <button v-on:click="addToCart">Add to Cart</button>
-        <div class="cart">
-          <p>Cart({{ cart }})</p>
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+          <p v-if="count >= 5">In Stock</p>
+          <p v-else-if="count < 5">Only {{ count }} more left!</p>
+          <p v-else>Sold Out</p>
+          <ul>
+            <li v-for="detail in details">
+              {{ detail }}
+            </li>
+          </ul>
+          <div
+            class="color-box"
+            v-for="variant in variants"
+            :style="{backgroundColor: variant.variantColor}"
+            :key="variant.variantId"
+            @mouseover="updateProduct(variant.variantImage)"
+          ></div>
+          <button
+            v-on:click="addToCart"
+            :disabled="count < 1"
+            :class="{disabledButton: count < 1}"
+          >
+            Add to Cart
+          </button>
+          <div class="cart">
+            <p>Cart({{ cart }})</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script src="./main.js"></script>
-</body>
-
+    <script src="./main.js"></script>
+  </body>
 </html>
