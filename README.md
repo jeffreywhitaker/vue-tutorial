@@ -1,4 +1,4 @@
 
-#tutorial
+# tutorial
 
-on https://www.vuemastery.com/courses/intro-to-vue-js/class-&-style-binding
+on video: https://www.vuemastery.com/courses/intro-to-vue-js/class-&-style-binding
