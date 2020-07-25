@@ -1,42 +1,45 @@
 <template>
-  <div class="product">
-    <div class="product-image">
-      <img :src="image" />
+  <div>
+    <div class="cart">
+      <p>Cart({{ cartLength }})</p>
     </div>
-    <div class="product-info">
-      <h1>{{ title }}</h1>
-      <p v-if="count >= 5">In Stock</p>
-      <p v-else-if="count < 5">Only {{ count }} more left!</p>
-      <p v-else>Sold Out</p>
-      <p>Shipping is: {{ shipping }}</p>
-      <ul>
-        <li v-for="detail in details" :key="detail">
-          {{ detail }}
-        </li>
-      </ul>
-      <div
-        class="color-box"
-        v-for="(variant, index) in variants"
-        :style="{ backgroundColor: variant.variantColor }"
-        :key="variant.variantId"
-        @mouseover="updateProduct(index)"
-      ></div>
-      <button
-        v-on:click="addToCart"
-        :disabled="count < 1"
-        :class="{ disabledButton: count < 1 }"
-      >
-        Add to Cart
-      </button>
-      <div>
-        <h2>Reviews</h2>
-        <p v-if="reviews.length < 1">No Reviews Submitted</p>
-        <ul v-else>
-          <li v-for="review in reviews" :key="review">{{ review }}</li>
-        </ul>
+    <div class="product">
+      <div class="product-image">
+        <img :src="image" />
       </div>
+      <div class="product-info">
+        <h1>{{ title }}</h1>
+        <p v-if="count >= 5">In Stock</p>
+        <p v-else-if="count < 5">Only {{ count }} more left!</p>
+        <p v-else>Sold Out</p>
+        <p>Shipping is: {{ shipping }}</p>
+        <ul>
+          <li v-for="detail in details" :key="detail">{{ detail }}</li>
+        </ul>
+        <div
+          class="color-box"
+          v-for="(variant, index) in variants"
+          :style="{ backgroundColor: variant.variantColor }"
+          :key="variant.variantId"
+          @mouseover="updateProduct(index)"
+        ></div>
+        <button
+          v-on:click="addToCart"
+          :disabled="count < 1"
+          :class="{ disabledButton: count < 1 }"
+        >
+          Add to Cart
+        </button>
+        <div>
+          <h2>Reviews</h2>
+          <p v-if="reviews.length < 1">No Reviews Submitted</p>
+          <ul v-else>
+            <li v-for="review in reviews" :key="review">{{ review }}</li>
+          </ul>
+        </div>
+      </div>
+      <ProductReview @review-submitted="addReview" />
     </div>
-    <ProductReview @review-submitted="addReview" />
   </div>
 </template>
 
@@ -44,12 +47,16 @@
 import ProductReview from "./ProductReview.vue";
 
 export default {
-  props: {
-    premium: {
-      type: Boolean,
-      required: true,
-    },
-  },
+  // props: {
+  //   premium: {
+  //     type: Boolean,
+  //     required: true,
+  //   },
+  //   cart: {
+  //     type: Array,
+  //     required: true,
+  //   },
+  // },
   data() {
     return {
       product: "Socks",
@@ -96,11 +103,14 @@ export default {
       return this.variants[this.selectedVariant].variantQuantity;
     },
     shipping() {
-      if (this.premium) {
+      if (this.$store.premium) {
         return "Free";
       } else {
         return 2.99;
       }
+    },
+    cartLength() {
+      return this.$store.state.cart.length;
     },
   },
   components: {
